@@ -11,7 +11,7 @@ def frontpage():
 
 @app.route("/about")
 def aboutpage():
-    return "ok"
+    return render_template("about.html")
 
 @app.route("/contact")
 def contactpage():
