@@ -1,2 +1,2 @@
 init:
-	sqlite3 blog.sqlite < init.sql
+	cd blog && sqlite3 blog.sqlite < init.sql
