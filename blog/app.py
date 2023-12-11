@@ -1,10 +1,15 @@
-from flask import Flask, render_template, session, redirect
+from flask import Flask, render_template, session, redirect, g
 from forms import LoginForm
 
 
 app =Flask(__name__)
 app.secret_key='secret'
 
+
+@app.before_request
+def global_vars():
+    if session.get('logged_in'):
+        g.logged = True
 
 @app.route("/")
 def frontpage():
@@ -42,7 +47,9 @@ def loginpage():
             return redirect('/')
     return render_template("login.html", form = form)
 
-@app.route("/logout")
+@app.route("/logout", endpoint="logout")
 def logoutpage():
-    pass
+    session.pop('logged_in', None)
+    return redirect('/')
+
 
