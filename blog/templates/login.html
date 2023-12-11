@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% set page_title =  "Вход" %}
+{% set page_subtitle =  "Вход в раздел администратора" %}
+
+{% block title %} Вход автора
+{% endblock title %}
+{% block content %}
+<h1>Вход</h1>
+<form method="POST" action="{{ url_for('login') }}">
+    {{ form.csrf_token }}
+    <div class="mb-4">
+        <label for="InputEmail1" class="form-label">Имя входа:</label>
+        {{ form.name (type="text", class_="form-control", size=24) }}<br>
+        
+      </div>
+      <div class="mb-4">
+        <label for="InputPassword1" class="form-label">Пароль:</label>
+       {{ form.password (type="password", class_="form-control", size=24) }}<br>
+      </div>
+     
+      <button type="submit" class="btn btn-primary" value="Вход">Вход</button>
+    <br>
+    <div><p></p></div>
+    </form>
+{% endblock content %}

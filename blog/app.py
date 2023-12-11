@@ -1,8 +1,9 @@
-from flask import Flask, render_template
-
+from flask import Flask, render_template, session, redirect
+from forms import LoginForm
 
 
 app =Flask(__name__)
+app.secret_key='secret'
 
 
 @app.route("/")
@@ -29,9 +30,17 @@ def postedit(post_id):
 def postnew():
     pass
 
-@app.route("/login")
+ADMIN_NAME = 'admin'
+ADMIN_PASS = '123'
+
+@app.route("/login", endpoint='login', methods=["GET", "POST"] )
 def loginpage():
-    pass
+    form = LoginForm()
+    if form.validate_on_submit():
+        if form.name.data == ADMIN_NAME and form.password.data == ADMIN_PASS:
+            session['logged_in'] = True
+            return redirect('/')
+    return render_template("login.html", form = form)
 
 @app.route("/logout")
 def logoutpage():
