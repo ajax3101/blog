@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 
 
 
@@ -15,17 +15,17 @@ def aboutpage():
 
 @app.route("/contact")
 def contactpage():
-    return "ok"
+    return render_template("contact.html")
 
-@app.route("/post/<post_id:int>", endpoint="post")
+@app.route("/post/<post_id>", endpoint="post")
 def postpage(post_id):
     pass
 
-@app.route("/post/<post_id:int>/edit", method=["GET", "POST"], endpoint="edit")
+@app.route("/post/<post_id>/edit", methods=["GET", "POST"], endpoint="edit")
 def postedit(post_id):
     pass
 
-@app.route("/post/new", method=["GET", "POST"], endpoint="new")
+@app.route("/post/new", methods=["GET", "POST"], endpoint="new")
 def postnew():
     pass
 
