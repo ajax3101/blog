@@ -1,3 +1,4 @@
+import sqlite3
 from flask import Flask, render_template, session, redirect, g
 from forms import LoginForm
 
@@ -5,6 +6,9 @@ from forms import LoginForm
 app =Flask(__name__)
 app.secret_key='secret'
 
+ADMIN_NAME = 'admin'
+ADMIN_PASS = '123'
+DATABASE = 'blog.sqlite'
 
 @app.before_request
 def global_vars():
@@ -13,7 +17,9 @@ def global_vars():
 
 @app.route("/")
 def frontpage():
-    return "ok"
+    db = sqlite3.connect(DATABASE)
+    posts = db.execute('select * from post').fetchall()
+    return render_template('feed.html', posts=posts)
 
 @app.route("/about")
 def aboutpage():
@@ -35,8 +41,6 @@ def postedit(post_id):
 def postnew():
     pass
 
-ADMIN_NAME = 'admin'
-ADMIN_PASS = '123'
 
 @app.route("/login", endpoint='login', methods=["GET", "POST"] )
 def loginpage():
